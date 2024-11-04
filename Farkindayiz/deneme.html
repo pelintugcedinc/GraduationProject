@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siber Zorbalık Quizi</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .quiz-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .step {
+      display: none;
+    }
+    .result {
+      display: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h2 class="text-center">Siber Zorbalık Hakkında Bilgi Testi</h2>
+
+  <!-- Soru 1 -->
+  <div class="step" id="step1">
+    <label>1. Siber zorbalık nedir?</label>
+    <div>
+      <input type="radio" name="question1" value="0"> Bir bilgisayar oyunu.<br>
+      <input type="radio" name="question1" value="1"> İnternet üzerinden yapılan zorbalık türü.<br>
+      <input type="radio" name="question1" value="0"> Güvenli bir internet bağlantısı.<br>
+    </div>
+    <button class="btn btn-secondary mt-3" onclick="nextStep(2)">İleri</button>
+  </div>
+
+  <!-- Soru 2 -->
+  <div class="step" id="step2">
+    <label>2. Siber zorbalığa uğrayan biri ne yapmalıdır?</label>
+    <div>
+      <input type="radio" name="question2" value="1"> Güvenilir birine danışmalı.<br>
+      <input type="radio" name="question2" value="0"> Zorbalığı yapan kişiye cevap vermeli.<br>
+      <input type="radio" name="question2" value="0"> Görmezden gelmeli.<br>
+    </div>
+    <button class="btn btn-secondary mt-3" onclick="previousStep(1)">Geri</button>
+    <button class="btn btn-secondary mt-3" onclick="nextStep(3)">İleri</button>
+  </div>
+
+  <!-- Soru 3 -->
+  <div class="step" id="step3">
+    <label>3. Siber zorbalığa karşı hangi önlem alınabilir?</label>
+    <div>
+      <input type="radio" name="question3" value="0"> Şifresiz internet kullanmak.<br>
+      <input type="radio" name="question3" value="1"> Gizlilik ayarlarını düzenlemek.<br>
+      <input type="radio" name="question3" value="0"> Tüm bilgileri herkese açık yapmak.<br>
+    </div>
+    <button class="btn btn-secondary mt-3" onclick="previousStep(2)">Geri</button>
+    <button class="btn btn-primary mt-3" onclick="submitQuiz()">Quiz'i Bitir</button>
+  </div>
+
+  <!-- Sonuç -->
+  <div class="result alert alert-success mt-3" role="alert" id="result">
+    Sonuç: <span id="score"></span>/3 doğru!
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+
+  // İlk adımı göster
+  document.getElementById("step1").style.display = "block";
+
+  function nextStep(step) {
+    document.getElementById(`step${currentStep}`).style.display = "none";  // Geçerli adımı gizle
+    currentStep = step;
+    document.getElementById(`step${currentStep}`).style.display = "block"; // Yeni adımı göster
+  }
+
+  function previousStep(step) {
+    document.getElementById(`step${currentStep}`).style.display = "none";  // Geçerli adımı gizle
+    currentStep = step;
+    document.getElementById(`step${currentStep}`).style.display = "block"; // Önceki adımı göster
+  }
+
+  function submitQuiz() {
+    let score = 0;
+
+    // Doğru cevapları kontrol et
+    if (document.querySelector('input[name="question1"]:checked')?.value === "1") score++;
+    if (document.querySelector('input[name="question2"]:checked')?.value === "1") score++;
+    if (document.querySelector('input[name="question3"]:checked')?.value === "1") score++;
+
+    // Sonuçları göster
+    document.getElementById("score").innerText = score;
+    document.getElementById("result").style.display = "block";
+
+    // Tüm adımları gizle
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById(`step${i}`).style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>

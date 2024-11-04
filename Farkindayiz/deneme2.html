@@ -1,0 +1,55 @@
+<!DOCTYPE html>  
+<html lang="tr">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Paylaşım Butonları</title>  
+    <style>  
+        .share-buttons {  
+            margin: 20px 0;  
+        }  
+        .share-buttons button {  
+            margin-right: 10px;  
+            cursor: pointer;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+    <div>  
+        <h1>Paylaşmak istediğiniz metin:</h1>  
+        <p id="content">Ben bu web sitesinde yazılanları tek tuşla paylaşmak istiyorum.</p>  
+    </div>  
+
+    <div class="share-buttons">  
+        <button onclick="share('twitter')">Twitter</button>  
+        <button onclick="share('facebook')">Facebook</button>  
+        <button onclick="share('whatsapp')">WhatsApp</button>  
+    </div>  
+
+    <script>  
+        function share(platform) {  
+            const text = document.getElementById('content').textContent;  
+            let url;  
+            const encodedText = encodeURIComponent(text);  
+
+            switch (platform) {  
+                case 'twitter':  
+                    url = `https://twitter.com/intent/tweet?text=${encodedText}`;  
+                    break;  
+                case 'facebook':  
+                    url = `https://www.facebook.com/sharer/sharer.php?u=${encodedText}`;  
+                    break;  
+                case 'whatsapp':  
+                    url = `https://api.whatsapp.com/send?text=${encodedText}`;  
+                    break;  
+                default:  
+                    return;  
+            }  
+
+            window.open(url, '_blank');  
+        }  
+    </script>  
+
+</body>  
+</html>
